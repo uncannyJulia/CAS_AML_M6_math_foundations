@@ -33,7 +33,6 @@ def better_layer(inputs: list, weights:np.ndarray , biases=np.array):
     for neuron_weights, neuron_bias in zip(weights, biases):
         neuron_output = 0
         for n_input, weight in zip(inputs, neuron_weights):
-            #print(n_input, weight)
             neuron_output += n_input*weight
         neuron_output += neuron_bias
         output.append(neuron_output)
@@ -47,3 +46,6 @@ def numpy_layer(inputs: list, weights:np.ndarray , biases=np.array):
     return outputs
 
 numpy_layer(inputs=inputs, weights=weights, biases=biases)
+
+def batch_layer(inputs: list, weights:np.ndarray , biases=np.array):
+    pass
