@@ -17,6 +17,8 @@ accuracy=np.mean(predictions==class_targets)
 
 print(accuracy)
 
+
+######### accuracy for classification
 def accuracy(outputs, labels):
     if len(class_targets.shape)==1:
         predictions=np.argmax(softmax_outputs, axis=1)
@@ -24,5 +26,16 @@ def accuracy(outputs, labels):
         class_targets=np.argmax(class_targets, axis=1)
     accuracy=np.mean(predictions==class_targets)
 
+
+######### there is no real accuracy for a regression, 
+#  its more a relative measure of values ranging between the 
+#  allowed window within a standart deviation
+
+targets=np.array([33,45.6, 34.3])
+predictions=np.array([35, 47, 35])
+
+accuracy_precision = np.std(targets) / 5
+accuracy = np.mean(np.absolute(predictions - targets) <accuracy_precision)
+print(accuracy)
     
 
