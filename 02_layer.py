@@ -48,4 +48,8 @@ def numpy_layer(inputs: list, weights:np.ndarray , biases=np.array):
 numpy_layer(inputs=inputs, weights=weights, biases=biases)
 
 def batch_layer(inputs: list, weights:np.ndarray , biases=np.array):
-    pass
+    # to ingest batches we have to switch from a dot product to a matrix product
+    # numpy implements this in the same function, however the jist is that a matrix multiplication emerges
+    # when you perform the dot procut of a row and a column vector, to achive this we have to transpose one of the vectors
+    outputs=np.dot(inputs, np.array(weights).T)+ biases
+

@@ -143,3 +143,11 @@ class Activation_Softmax_Loss_CategoricalCrossentropy():
         self.dinputs[range(samples), y_true] -= 1
         # Normalize gradient
         self.dinputs = self.dinputs / samples
+
+class optimizer_SDG:
+    def __init__(self, learning_rate=1.0):
+        self.learning_rate=learning_rate
+
+    def update_params(self, layer):
+        layer.weights +=-self.learning_rate*layer.dweights
+        layer.biases +=-self.learning_rate*layer.dbiases

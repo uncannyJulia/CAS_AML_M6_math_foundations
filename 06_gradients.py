@@ -47,3 +47,38 @@ def batch_prop(dvalues, weights, inputs, biases):
     biases += -0.001 * dbiases
     print(f"new weights are: {weights} \n new biases are {biases}")
 batch_prop(dvalues, weights, inputs, biases)
+
+# but to make this work all the code needs to be integrated layerwise in the classes created
+# the class architecture allows easy spread of forward and backwand operations
+# to avoid long formulas it is best to also call it layerwise - so every layer separately delivers its forward and backward results
+# then these reults can be passed up/ down to the next one
+
+# so far i was easy because the dervatives of relu and dense are easy to take. 
+# One big issue might be the derivatices of sigmoid/ cross entropy. 
+# I will just implement an eccepted formula, 
+# because I lack the skills to express the mathematical explanation as to why this is the derivative.
+
+
+# cross-entropy
+
+def CCE_loss_prop(dvalues, y_true):
+    samples=len(dvalues)            # the result needs to be normalized by how many outputs there are
+    labels=len(dvalues[0])
+    if len(y_true.shape) == 1:
+        y_true = np.eye(labels)[y_true]
+    dinputs = -y_true / dvalues
+    dinputs = dinputs / samples
+
+
+
+def SM_prop(dvalues, output):                   # output is the result from the forward pass
+    dinputs = np.empty_like(dvalues)
+    for index, (single_output, single_dvalues) in enumerate(zip(output, dvalues)):
+        # Flatten output array
+        single_output = single_output.reshape(-1, 1)
+        # Calculate Jacobian matrix of the output
+        jacobian_matrix = np.diagflat(single_output) - \
+            np.dot(single_output, single_output.T)
+        
+        dinputs[index] = np.dot(jacobian_matrix,single_dvalues)
+
