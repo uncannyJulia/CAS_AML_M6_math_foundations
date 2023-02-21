@@ -15,4 +15,5 @@ The solution is based on many tutorials, namely:
 todo:
 - something something optimizer adam
 - regularization
-- regression layers
+
+- model object automation
